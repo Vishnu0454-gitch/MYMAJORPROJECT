@@ -12,7 +12,8 @@ const upload=multer({storage});
 router
 .route("/")
 .get(wrapAsync(listingController.index))
-.post(isLoggedIn,validateListing,upload.single('listing[image]'),wrapAsync (listingController.CreateListing));
+.post((req,res,next)=>{console.log("POST /listings ROUTE HIT");
+    next();},isLoggedIn,validateListing,upload.single('listing[image]'),wrapAsync (listingController.CreateListing));
 
 // New Route
 router.get("/new",isLoggedIn,listingController.renderNewForm)
