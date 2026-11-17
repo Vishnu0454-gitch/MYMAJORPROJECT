@@ -80,14 +80,18 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-app.use((req,res,next)=>{
-    res.locals.success=req.flash("success");
-    res.locals.error=req.flash("error");
-    res.locals.currUser=req.user;
-    next();
-})
+// app.use((req,res,next)=>{
+//     res.locals.success=req.flash("success");
+//     res.locals.error=req.flash("error");
+//     res.locals.currUser=req.user;
+//     next();
+// })
 
 
+app.use((err, req, res, next) => {
+    console.log("ERROR:", err);
+    res.status(err.statusCode || 500).send(err.message);
+});
 
 app.use("/listings",listingRouter);
 app.use("/listings/:id/reviews",reviewRouter);
