@@ -26,6 +26,10 @@ module.exports.ShowListing=async (req,res)=>{
 }
 
 module.exports.CreateListing=async(req,res,next)=>{
+    console.log("CREATE LISTING FUNCTION HIT");
+    console.log("FORM DATA:", req.body);
+    console.log("UPLOADED FILE:", req.file);
+
     let response=await geocodingClient.forwardGeocode({
   query: req.body.listing.location,
   limit: 1,
